@@ -23,6 +23,10 @@ class Donar_ModelCreate(forms.ModelForm):
             upload.save()
 
             return redirect('donatersuccess')
+
+    exam the gotp
+
+    
         
     else:
         
