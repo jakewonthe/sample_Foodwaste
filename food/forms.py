@@ -10,6 +10,24 @@ class Donar_ModelCreate(forms.ModelForm):
         ('Gun', 'Gunturu'),
       ]
 
+    def donarregister(request):
+
+    upload=DonarRegister_ModelCreate()
+
+    if request.method=='POST':
+        
+        upload=DonarRegister_ModelCreate(request.POST,request.FILES)
+
+        if upload.is_valid():
+
+            upload.save()
+
+            return redirect('donatersuccess')
+        
+    else:
+        
+        return render(request,'donateregister.html',{'upload_form':upload})
+
     fullname=forms.CharField(label='Full Name',widget=forms.TextInput(attrs={'class':"form-control"}))
     
     email=forms.CharField(label='Email', widget=forms.TextInput(attrs={'class': "form-control"}))
