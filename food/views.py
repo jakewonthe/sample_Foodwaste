@@ -232,6 +232,41 @@ def ViewAssignAgents(request):
     return render(request,'ViewAssignAgents.html',{'obj':obj})
 
 
+def ViewProfile(request):
+    """
+    View a donor's profile.
+
+    Parameters:
+        request (HttpRequest): The HTTP request object containing session data.
+
+    Returns:
+        HttpResponse: A rendered HTML page displaying the donor's profile details.
+
+    Precondition:
+        - The 'did' key must exist in the request session.
+
+    Postcondition:
+        - If the 'did' key exists and corresponds to a valid DonarRegister_Model object,
+          the profile details will be rendered in the 'ViewProfile.html' template.
+        - If the 'did' key does not exist or the object is not found, an error page may be displayed.
+
+    Raises:
+        KeyError: If the 'did' key is not found in the request session.
+
+    """
+    try:
+        # Precondition: Check if the 'did' key exists in the request session
+        did = request.session['did']
+    except KeyError:
+        # If the 'did' key is not found, raise an error or redirect to an error page.
+        raise KeyError("The 'did' key is not found in the request session.")
+
+    # Retrieve the DonarRegister_Model object with the given 'did' value.
+    # Postcondition: If the object is found, it will be available in the 'obj' variable.
+    obj = DonarRegister_Model.objects.filter(id=did).first()
+
+    # Render the 'ViewProfile.html' template with the 'obj' variable.
+    return render(request, 'ViewProfile.html', {'obj': obj})
 
 
 
